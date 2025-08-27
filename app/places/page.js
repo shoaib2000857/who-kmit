@@ -14,7 +14,8 @@ export default function PlacesPage() {
     async function fetchLocations() {
       try {
         setLoading(true);
-        const res = await fetch('http://localhost:4000/api/locations');
+        // const res = await fetch('http://localhost:4000/api/locations');
+        const res = await fetch('/api/locations');
         if (!res.ok) throw new Error('Failed to fetch campus locations');
         const data = await res.json();
         setCampusLocations(data);

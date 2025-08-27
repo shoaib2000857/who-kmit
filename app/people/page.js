@@ -13,7 +13,8 @@ export default function PeoplePage() {
     async function fetchAlumni() {
       try {
         setLoading(true);
-        const res = await fetch('http://localhost:4000/api/alumni');
+        // const res = await fetch('http://localhost:4000/api/alumni');
+        const res = await fetch('/api/alumni');
         if (!res.ok) throw new Error('Failed to fetch alumni locations');
         const data = await res.json();
         setAlumniLocations(data);

@@ -9,7 +9,8 @@ export default function WeatherMonitor() {
     async function fetchWeather() {
       try {
         setLoading(true);
-        const res = await fetch("http://localhost:4000/api/weather");
+        // const res = await fetch("http://localhost:4000/api/weather");
+        const res = await fetch("/api/weather");
         if (!res.ok) throw new Error("Failed to fetch weather");
         const data = await res.json();
         setWeather(data);
