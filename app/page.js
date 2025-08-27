@@ -58,7 +58,7 @@ export default function Home() {
           }}
         >
           <span style={{ color: "#00ffe7", fontWeight: 700 }}>KMIT</span> is more
-          than a place—it's a vibrant community.
+          than a place—it&apos;s a vibrant community.
           <br />
           <span style={{ color: "#ff00a6", fontWeight: 700 }}>Who</span> we are:
           The alumni, students, and faculty who shape our legacy.
