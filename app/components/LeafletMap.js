@@ -3,14 +3,6 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-const alumniData = [
-  { name: 'Alumni 1', coords: [17.3956, 78.4032] },
-  { name: 'Alumni 2', coords: [17.3960, 78.4040] },
-  { name: 'Alumni 3', coords: [17.3945, 78.4025] },
-];
-
-const collegeCoords = [17.3956, 78.4032]; // Example coordinates for college
-
 function FlyTo({ coords }) {
   const map = useMap();
   useEffect(() => {
@@ -19,14 +11,17 @@ function FlyTo({ coords }) {
   return null;
 }
 
-export default function LeafletMap({ type }) {
+export default function LeafletMap({ type, locations }) {
   let center, markers;
-  if (type === 'alumni') {
-    center = alumniData[0].coords;
-    markers = alumniData;
+  if (locations && locations.length > 0) {
+    center = locations[0].coords;
+    markers = locations;
+  } else if (type === 'alumni') {
+    center = [17.3956, 78.4032];
+    markers = [];
   } else if (type === 'college') {
-    center = collegeCoords;
-    markers = [{ name: 'KMIT College', coords: collegeCoords }];
+    center = [17.3956, 78.4032];
+    markers = [];
   } else {
     center = [17.3956, 78.4032];
     markers = [];
@@ -39,10 +34,10 @@ export default function LeafletMap({ type }) {
       style={{ height: '400px', width: '100%', borderRadius: '1rem', boxShadow: '0 4px 32px #0008', marginBottom: '2rem', overflow: 'hidden' }}
       scrollWheelZoom={true}
     >
-      {/* Dark theme tile layer */}
+      {/* Satellite view tile layer */}
       <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-        attribution="&copy; OpenStreetMap contributors & CartoDB"
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        attribution="Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
       />
       <FlyTo coords={center} />
       {markers.map((m, i) => (
@@ -53,7 +48,7 @@ export default function LeafletMap({ type }) {
           popupAnchor: [1, -34],
           shadowUrl: 'https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/images/marker-shadow.png',
         })}>
-          <Popup>{m.name}</Popup>
+          <Popup>{m.name || m.batch ? `${m.name} (${m.batch || ''} ${m.field || ''})` : m.name}</Popup>
         </Marker>
       ))}
     </MapContainer>

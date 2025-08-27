@@ -1,9 +1,31 @@
 'use client';
 import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
 
 const LeafletMap = dynamic(() => import('../components/LeafletMap'), { ssr: false });
 
 export default function PeoplePage() {
+  const [alumniLocations, setAlumniLocations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchAlumni() {
+      try {
+        setLoading(true);
+        const res = await fetch('http://localhost:4000/api/alumni');
+        if (!res.ok) throw new Error('Failed to fetch alumni locations');
+        const data = await res.json();
+        setAlumniLocations(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchAlumni();
+  }, []);
+
   return (
     <main style={{
       minHeight: '100vh',
@@ -12,6 +34,7 @@ export default function PeoplePage() {
       fontFamily: 'Orbitron, Roboto, sans-serif',
       padding: '2rem',
       boxShadow: '0 0 40px #00ffe7a0',
+      marginTop: '5rem', // offset for navbar
     }}>
       <h1 style={{
         fontSize: '3rem',
@@ -48,7 +71,9 @@ export default function PeoplePage() {
       }}>
         Alumni Map
       </h2>
-      <LeafletMap type="alumni" />
+      {loading && <div>Loading alumni locations...</div>}
+      {error && <div style={{ color: '#ff00a6' }}>Error: {error}</div>}
+      {!loading && !error && <LeafletMap type="alumni" locations={alumniLocations} />}
     </main>
   );
 }

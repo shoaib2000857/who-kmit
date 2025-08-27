@@ -1,10 +1,32 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
 
 const LeafletMap = dynamic(() => import('../components/LeafletMap'), { ssr: false });
 
 export default function PlacesPage() {
+  const [campusLocations, setCampusLocations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchLocations() {
+      try {
+        setLoading(true);
+        const res = await fetch('http://localhost:4000/api/locations');
+        if (!res.ok) throw new Error('Failed to fetch campus locations');
+        const data = await res.json();
+        setCampusLocations(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchLocations();
+  }, []);
+
   return (
     <main style={{
       minHeight: '100vh',
@@ -13,6 +35,7 @@ export default function PlacesPage() {
       fontFamily: 'Orbitron, Roboto, sans-serif',
       padding: '2rem',
       boxShadow: '0 0 40px #ff00a6a0',
+      marginTop: '5rem', 
     }}>
       <h1 style={{
         fontSize: '3rem',
@@ -49,7 +72,9 @@ export default function PlacesPage() {
       }}>
         College Map
       </h2>
-      <LeafletMap type="college" />
+      {loading && <div>Loading campus locations...</div>}
+      {error && <div style={{ color: '#ff00a6' }}>Error: {error}</div>}
+      {!loading && !error && <LeafletMap type="college" locations={campusLocations} />}
     </main>
   );
 }

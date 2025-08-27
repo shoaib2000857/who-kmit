@@ -1,103 +1,134 @@
+'use client';
+import Link from "next/link";
 import Image from "next/image";
+import Navbar from "./components/Navbar";
+import WeatherMonitor from "./components/WeatherMonitor";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+    <>
+      <Navbar />
+      <main
+        style={{
+          minHeight: "100vh",
+          background: "linear-gradient(135deg, #0f2027 0%, #232526 100%)",
+          color: "#fff",
+          fontFamily: "Orbitron, Roboto, sans-serif",
+          padding: "2rem",
+          boxShadow: "0 0 40px #00ffe7a0",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "2rem",
+          marginTop: "5rem", 
+        }}
+      >
+        <WeatherMonitor />
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
+          src="/globe.svg"
+          alt="Where-KMIT Logo"
+          width={120}
+          height={120}
+          style={{ filter: "drop-shadow(0 0 32px #00ffe7)" }}
           priority
         />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <h1
+          style={{
+            fontSize: "3.2rem",
+            letterSpacing: "0.12em",
+            textShadow: "0 0 32px #00ffe7, 0 0 12px #ff00a6",
+            fontWeight: 900,
+            marginBottom: "1.2rem",
+            fontFamily: "Orbitron, Roboto, sans-serif",
+          }}
+        >
+          Where - KMIT
+        </h1>
+        <p
+          style={{
+            fontSize: "1.4rem",
+            maxWidth: "700px",
+            textAlign: "center",
+            background: "rgba(0, 255, 231, 0.08)",
+            borderRadius: "1rem",
+            padding: "1.2rem 2rem",
+            boxShadow: "0 0 16px #00ffe7a0",
+            fontFamily: "Orbitron, Roboto, sans-serif",
+          }}
+        >
+          <span style={{ color: "#00ffe7", fontWeight: 700 }}>KMIT</span> is more
+          than a place—it's a vibrant community.
+          <br />
+          <span style={{ color: "#ff00a6", fontWeight: 700 }}>Who</span> we are:
+          The alumni, students, and faculty who shape our legacy.
+          <br />
+          <span style={{ color: "#00ffe7", fontWeight: 700 }}>Where</span> we are:
+          The campus, the landmarks, and the memories that define us.
+          <br />
+          Explore both sides of KMIT below and experience the future of connection
+          and discovery.
+        </p>
+        <div
+          style={{
+            display: "flex",
+            gap: "2rem",
+            marginTop: "2rem",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          <Link
+            href="/people"
+            style={{
+              background:
+                "linear-gradient(90deg, #00ffe7 0%, #ff00a6 100%)",
+              color: "#232526",
+              fontWeight: 700,
+              fontSize: "1.2rem",
+              padding: "1rem 2.5rem",
+              borderRadius: "2rem",
+              boxShadow: "0 0 24px #00ffe7a0",
+              textDecoration: "none",
+              transition: "transform 0.2s",
+              fontFamily: "Orbitron, Roboto, sans-serif",
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Who @ KMIT
+          </Link>
+          <Link
+            href="/places"
+            style={{
+              background:
+                "linear-gradient(90deg, #ff00a6 0%, #00ffe7 100%)",
+              color: "#232526",
+              fontWeight: 700,
+              fontSize: "1.2rem",
+              padding: "1rem 2.5rem",
+              borderRadius: "2rem",
+              boxShadow: "0 0 24px #ff00a6a0",
+              textDecoration: "none",
+              transition: "transform 0.2s",
+              fontFamily: "Orbitron, Roboto, sans-serif",
+            }}
           >
-            Read our docs
-          </a>
+            Where @ KMIT
+          </Link>
         </div>
+        <footer
+          style={{
+            marginTop: "3rem",
+            fontSize: "1rem",
+            color: "#aaa",
+            textAlign: "center",
+            opacity: 0.8,
+          }}
+        >
+          <span style={{ color: "#00ffe7" }}>
+            Made for the future. Made for KMIT.
+          </span>
+        </footer>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    </>
   );
 }
